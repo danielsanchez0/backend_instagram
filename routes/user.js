@@ -5,6 +5,29 @@ const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 
+router.get('/stats',requireLogin,(req,res)=>{
+	User.aggregate([{ "$lookup": {
+     "from": "posts",
+     "foreignField": "postedBy",
+     "localField": "_id",
+     "as": "preguntas"
+   }},
+   {
+     "$unwind": "$preguntas"
+   },
+   {
+     $group : {_id:{id:"$_id",name:"$name",pic:"$pic"}, count:{$sum:1}}
+   },
+   {
+       $sort: {count: -1}
+   }])
+	.then(posts=>{
+		res.json({posts})
+	}).catch(err=>{
+		console.log(err);
+	})
+})
+
 router.get('/user/:id',requireLogin,(req,res)=>{
 	User.findOne({_id:req.params.id})
 	.select("-password").

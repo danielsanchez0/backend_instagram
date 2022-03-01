@@ -4,6 +4,29 @@ const mongoose = require('mongoose');
 const requireLogin = require('../middleware/requireLogin');
 const Post = mongoose.model("Post");
 
+router.get('/comments_users',requireLogin,(req,res)=>{
+	Post.aggregate([{ "$lookup": {
+     "from": "posts",
+     "foreignField": "postedBy",
+     "localField": "_id",
+     "as": "preguntas"
+   }},
+   {
+     "$unwind": "$preguntas"
+   },
+   {
+     $group : {_id:{id:"$_id",name:"$name",pic:"$pic"}, count:{$sum:1}}
+   },
+   {
+       $sort: {count: -1}
+   }])
+	.then(posts=>{
+		res.json({posts})
+	}).catch(err=>{
+		console.log(err);
+	})
+})
+
 router.get('/allpost',(req,res)=>{
 	Post.find()
 	.populate("postedBy","_id name")
