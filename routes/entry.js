@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const requireLogin = require('../middleware/requireLogin');
 const Entry = mongoose.model("Entry");
+const julian = "julian";
 
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
