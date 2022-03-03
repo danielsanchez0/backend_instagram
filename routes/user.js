@@ -5,7 +5,7 @@ const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 
-router.get('/stats',requireLogin,(req,res)=>{
+router.get('/stats',(req,res)=>{
 	User.aggregate([{ "$lookup": {
      "from": "posts",
      "foreignField": "postedBy",
@@ -22,7 +22,7 @@ router.get('/stats',requireLogin,(req,res)=>{
        $sort: {count: -1}
    }])
 	.then(posts=>{
-		res.json({posts})
+		res.status(200).json({posts})
 	}).catch(err=>{
 		console.log(err);
 	})
