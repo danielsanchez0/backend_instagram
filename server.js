@@ -12,7 +12,6 @@ function run(callback) {
     const user = require('./routes/user');
 
     /*conexion a la base de datos */
-    
     mongoose.connect(MONGOURI,{
         useNewUrlParser: true,
         useUnifiedTopology:true
@@ -23,6 +22,7 @@ function run(callback) {
     mongoose.connection.on("error",(err)=>{
         console.log("error ",err);
     })
+    /*----------------------------------*/
 
     const app = express();
     app.use(cors());
