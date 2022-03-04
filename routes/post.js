@@ -98,7 +98,7 @@ router.get('/mypost',requireLogin,(req,res)=>{
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
  *       422:
- *         descripcion: El post no se ha creado, debe llenar todos los campos.
+ *         description: El post no se ha creado, debe llenar todos los campos.
  *         type: json
  */
 router.post('/createpost',requireLogin,(req,res)=>{
@@ -200,7 +200,7 @@ router.put('/unlike',requireLogin,(req,res)=>{
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
  *       422:
- *         descripcion: Error de procesamiento de datos.
+ *         description: Error de procesamiento de datos.
  *         type: json
  */
 router.put('/comment',requireLogin,(req,res)=>{
@@ -243,7 +243,7 @@ router.put('/comment',requireLogin,(req,res)=>{
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
  *       422:
- *         descripcion: Error de procesamiento de datos.
+ *         description: Error de procesamiento de datos.
  *         type: json
  */
 router.delete('/deletepost/:postId',requireLogin,(req,res)=>{

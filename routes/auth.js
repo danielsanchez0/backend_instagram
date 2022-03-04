@@ -15,6 +15,27 @@ const transporter = nodemailer.createTransport(sendgridTransport({
 	}
 }))
 
+/**
+ * @swagger
+ * /auth/signup:
+ *   post:
+ *     description: Usado para solicitar crear un nuevo post.
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       201:
+ *         description: Usuario creado correctamente.
+ *         type: json
+ *       401:
+ *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
+ *         type: json
+ *       422:
+ *         description: El usuario no se ha creado, debe llenar todos los campos.
+ *         type: json
+ *       423:
+ *         description: El usuario ya existe.
+ *         type: json
+ */
 router.post('/signup',(req,res)=>{
 	const {name,email,password,pic} = req.body;
 
@@ -24,7 +45,7 @@ router.post('/signup',(req,res)=>{
 
 	User.findOne({email:email}).then((savedUser)=>{
 		if(savedUser){
-			return res.status(422).json({error:"el usuario ya existe"});
+			return res.status(423).json({error:"el usuario ya existe"});
 		}
 
 		bcrypt.hash(password,12).then(hashedpassword=>{
@@ -44,7 +65,7 @@ router.post('/signup',(req,res)=>{
 				html:"<h1>welcome to clone instagram</h1>"
 			})
 
-			res.json({message:"usuario guardado"});
+			res.status(201).json({message:"usuario guardado"});
 		}).catch(err=>{
 			console.log(err)
 		})
@@ -55,11 +76,32 @@ router.post('/signup',(req,res)=>{
 
 })
 
+/**
+ * @swagger
+ * /auth/signin:
+ *   post:
+ *     description: Usado para loguearse en el sistema.
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       201:
+ *         description: Usuario logueado correctamente.
+ *         type: json
+ *       405:
+ *         description: Error de acceso, debe ingresar todos los datos.
+ *         type: json
+ *       422:
+ *         description: El usuario no se ha logueado, contraseña incorrecta.
+ *         type: json
+ *       423:
+ *         description: Contraseña incorrecta.
+ *         type: json
+ */
 router.post('/signin',(req,res)=>{
 	const {email,password} = req.body;
 
 	if(!email || !password){
-		return res.status(422).json({error:"incorrecto"})
+		return res.status(405).json({error:"incorrecto"})
 	}
 
 	User.findOne({email:email}).then(savedUser=>{
@@ -71,9 +113,9 @@ router.post('/signin',(req,res)=>{
 			if(doMatch){
 				const token = jwt.sign({_id:savedUser._id},JWT_SECRET);
 				const {_id,name,email,followers,following,pic} = savedUser
-				res.json({token,user:{_id,name,email,followers,following,pic}})
+				res.status(201).json({token,user:{_id,name,email,followers,following,pic}})
 			}else{
-				return res.status(422).json({error:"contraseña incorrecta"})
+				return res.status(423).json({error:"contraseña incorrecta"})
 			}
 		}).catch(err=>{
 			console.log(err)

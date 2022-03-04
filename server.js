@@ -6,12 +6,20 @@ function run(callback) {
     const cors = require('cors');
     const {MONGOURI} = require('./keys');
 
+    /**
+     * modelos
+     */
     require('./models/user');
     require('./models/post');
 
+    /**
+     * rutas
+     */
     const user = require('./routes/user');
 
-    /*conexion a la base de datos */
+    /**
+     * conexion a la base de datos
+     */
     mongoose.connect(MONGOURI,{
         useNewUrlParser: true,
         useUnifiedTopology:true
@@ -22,7 +30,9 @@ function run(callback) {
     mongoose.connection.on("error",(err)=>{
         console.log("error ",err);
     })
-    /*----------------------------------*/
+    /**
+     * apartado de conexión finalizado
+     */
 
     const app = express();
     app.use(cors());
