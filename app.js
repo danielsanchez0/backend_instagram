@@ -17,7 +17,6 @@ require('./models/entry');
 /**
   * API routes:
 */
-var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var authRouter = require('./routes/auth');
 var postRouter = require('./routes/post');
@@ -41,6 +40,9 @@ mongoose.connection.on('connected',()=>{
 mongoose.connection.on("error",(err)=>{
 	console.log("error ",err);
 })
+/**
+ * fin del apartado de conexion a la base de datos.
+ */
 
 var app = express();
 app.use(cors());
@@ -55,7 +57,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
 app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/post',postRouter);
