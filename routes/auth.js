@@ -9,14 +9,6 @@ const requireLogin = require("../middleware/requireLogin")
 const nodemailer = require("nodemailer")
 const sendgridTransport = require("nodemailer-sendgrid-transport")
 
-/*router.get("/",(req,res)=>{
-	res.send("hello");
-})
-
-router.get('/protected',requireLogin,(req,res)=>{
-	res.send("hello user");
-})*/
-
 const transporter = nodemailer.createTransport(sendgridTransport({
 	auth:{
 		api_key:"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"

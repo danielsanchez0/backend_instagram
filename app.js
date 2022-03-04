@@ -7,17 +7,30 @@ var mongoose = require('mongoose');
 var cors = require('cors');
 const {MONGOURI} = require('./keys');
 
+/**
+  * modelos
+*/
 require('./models/user');
 require('./models/post');
 require('./models/entry');
 
+/**
+  * API routes:
+*/
 var indexRouter = require('./routes/index');
 var userRouter = require('./routes/user');
 var authRouter = require('./routes/auth');
 var postRouter = require('./routes/post');
 var entryRouter = require('./routes/entry');
 
-/*conexion a la base de datos */
+/**
+  *documentacion
+*/
+var docRouter = require("./routes/api/api-docs");
+
+/** 
+  *conexion a la base de datos 
+*/
 mongoose.connect(MONGOURI,{
 	useNewUrlParser: true,
 	useUnifiedTopology:true
@@ -30,7 +43,6 @@ mongoose.connection.on("error",(err)=>{
 })
 
 var app = express();
-
 app.use(cors());
 
 // view engine setup
@@ -48,6 +60,7 @@ app.use('/user', userRouter);
 app.use('/auth', authRouter);
 app.use('/post',postRouter);
 app.use('/entry',entryRouter);
+app.use('/api-docs',docRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

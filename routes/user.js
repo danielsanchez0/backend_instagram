@@ -5,6 +5,15 @@ const requireLogin = require("../middleware/requireLogin");
 const Post = mongoose.model("Post");
 const User = mongoose.model("User");
 
+/**
+ * @swagger
+ * /user/stats:
+ *   get:
+ *     description: Retorna la lista de usuarios con la información correspondiente a su id,nombre,url de su foto de perfil y cantidad de posts realizados, en orden respecto a la cantidad de posts.
+ *     responses:
+ *       200:
+ *         description: Retorna un json con la información solicitada correctamente.
+ */
 router.get('/stats',requireLogin,(req,res)=>{
 	User.aggregate([{ "$lookup": {
      "from": "posts",

@@ -4,10 +4,6 @@ const mongoose = require('mongoose');
 const requireLogin = require('../middleware/requireLogin');
 const Entry = mongoose.model("Entry");
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
-
 router.get('/allentries/',requireLogin,(req,res)=>{
 	Entry.find()
 	.populate("postedBy","_id name")
