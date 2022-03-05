@@ -119,7 +119,7 @@ router.post('/createEntry',requireLogin,(req,res)=>{
  *         descripcion: Error de procesamiento de datos.
  *         type: json
  */
- const processEntryFacts=(err, result)=>{
+ const processEntryFacts=(req, res, err, result)=>{
 
 	if(err){
 		return res.status(422).json({error:err})
@@ -146,7 +146,7 @@ router.put('/addstep',requireLogin,(req,res)=>{
 			new: true
 	})
 	.exec((err,result)=>{
-		processEntryFacts(err,result);
+		processEntryFacts(req, res, err,result);
 	})
 })
 
@@ -181,7 +181,7 @@ router.put('/addlabel',requireLogin,(req,res)=>{
 	})
 	.exec((err,result)=>{
 		
-		processEntryFacts(err,result);
+		processEntryFacts(req, res, err,result);
 		
 	})
 })
