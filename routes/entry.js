@@ -100,6 +100,7 @@ router.post('/createEntry',requireLogin,(req,res)=>{
 	})
 })
 
+
 /**
  * @swagger
  * /entry/addstep:
@@ -118,6 +119,22 @@ router.post('/createEntry',requireLogin,(req,res)=>{
  *         descripcion: Error de procesamiento de datos.
  *         type: json
  */
+ const processEntryFacts=(err, result)=>{
+
+	if(err){
+		return res.status(422).json({error:err})
+	} else{
+		Entry.findOne({_id:req.body.entryId})
+			.populate("postedBy","_id name")
+			.then(entry=>{
+				res.status(203).json({entry})
+				console.log({entry})
+		}).catch(error=>{
+			console.log(error);
+		})
+	}
+}
+
 router.put('/addstep',requireLogin,(req,res)=>{
 	const step = {
 		text:req.body.text,
@@ -129,20 +146,11 @@ router.put('/addstep',requireLogin,(req,res)=>{
 			new: true
 	})
 	.exec((err,result)=>{
-		if(err){
-			return res.status(422).json({error:err})
-		} else{
-			Entry.findOne({_id:req.body.entryId})
-				.populate("postedBy","_id name")
-				.then(entry=>{
-					res.status(203).json({entry})
-					console.log({entry})
-			}).catch(err=>{
-				console.log(err);
-			})
-		}
+		processEntryFacts(err,result);
 	})
 })
+
+
 
 /**
  * @swagger
@@ -172,18 +180,9 @@ router.put('/addlabel',requireLogin,(req,res)=>{
 			new: true
 	})
 	.exec((err,result)=>{
-		if(err){
-			return res.status(422).json({error:err})
-		} else{
-			Entry.findOne({_id:req.body.entryId})
-				.populate("postedBy","_id name")
-				.then(entry=>{
-					res.status(203).json({entry})
-					console.log({entry})
-			}).catch(err=>{
-				console.log(err);
-			})
-		}
+		
+		processEntryFacts(err,result);
+		
 	})
 })
 
