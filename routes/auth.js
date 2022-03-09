@@ -36,6 +36,15 @@ const transporter = nodemailer.createTransport(sendgridTransport({
  *         description: El usuario ya existe.
  *         type: json
  */
+const sendEmailSignup=(usuario)=>{
+	transporter.sendMail({
+		to:usuario.email,
+		from:"daniel.1701610339@ucaldas.edu.co",
+		subject:"signup success",
+		html:"<h1>welcome to clone instagram</h1>"
+	})
+}
+
 router.post('/signup',(req,res)=>{
 	const {name,email,password,pic} = req.body;
 
@@ -55,16 +64,8 @@ router.post('/signup',(req,res)=>{
 			name,
 			pic
 		})
-
-		user.save().then(user=>{
-
-			transporter.sendMail({
-				to:user.email,
-				from:"daniel.1701610339@ucaldas.edu.co",
-				subject:"signup success",
-				html:"<h1>welcome to clone instagram</h1>"
-			})
-
+		user.save().then(usuario=>{
+			sendEmailSignup(usuario);
 			res.status(201).json({message:"usuario guardado"});
 		}).catch(err=>{
 			console.log(err)
