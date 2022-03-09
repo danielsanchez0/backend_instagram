@@ -138,7 +138,7 @@ router.post('/createpost',requireLogin,(req,res)=>{
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
  *       422:
- *         descripcion: Error de procesamiento de datos.
+ *         description: Error de procesamiento de datos.
  *         type: json
  */
 router.put('/like',requireLogin,(req,res)=>{
@@ -169,7 +169,7 @@ router.put('/like',requireLogin,(req,res)=>{
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
  *       422:
- *         descripcion: Error de procesamiento de datos.
+ *         description: Error de procesamiento de datos.
  *         type: json
  */
 router.put('/unlike',requireLogin,(req,res)=>{

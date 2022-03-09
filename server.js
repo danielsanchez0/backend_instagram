@@ -1,3 +1,6 @@
+/**
+ * Servidor para realizar testing a la API.   
+ */
 function run(callback) {
 
     const express = require('express');
@@ -11,11 +14,13 @@ function run(callback) {
      */
     require('./models/user');
     require('./models/post');
+    require('./models/entry');
 
     /**
      * rutas
      */
     const user = require('./routes/user');
+    const entry = require('./routes/entry');
 
     /**
      * conexion a la base de datos
@@ -38,7 +43,8 @@ function run(callback) {
     app.use(cors());
     app.use(bodyParser.json());
 
-    app.use(user);
+    app.use('/user',user);
+    app.use('/entry',entry);
 
     var server = app.listen(3000, function () {
         console.log('started');

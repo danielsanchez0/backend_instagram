@@ -17,6 +17,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.10",
     "morgan": "~1.9.1",
+    "node-fetch": "^3.2.2",
     "nodemailer": "^6.6.1",
     "nodemailer-sendgrid-transport": "^0.2.0",
     "pug": "2.0.0-beta11",
@@ -25,7 +26,6 @@
   },
   "devDependencies": {
     "jasmine": "^4.0.2",
-    "jsdoc": "^3.6.10",
     "request": "^2.88.2"
   }
 }

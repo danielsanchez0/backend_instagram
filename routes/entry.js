@@ -77,7 +77,7 @@ router.get('/entry/:id',requireLogin,(req,res)=>{
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
  *       422:
- *         descripcion: La entrada no se ha creado, debe llenar todos los campos.
+ *         description: La entrada no se ha creado, debe llenar todos los campos.
  *         type: json
  */
 router.post('/createEntry',requireLogin,(req,res)=>{
@@ -115,20 +115,21 @@ router.post('/createEntry',requireLogin,(req,res)=>{
  *       401:
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
+ *       423:
+ *         description: Error de procesamiento de datos.
+ *         type: json
  *       422:
- *         descripcion: Error de procesamiento de datos.
+ *         description: No se ha añadido el paso, debe llenar todos los campos.
  *         type: json
  */
  const processEntryFacts=(req, res, err, result)=>{
-
 	if(err){
-		return res.status(422).json({error:err})
+		return res.status(423).json({error:err})
 	} else{
 		Entry.findOne({_id:req.body.entryId})
 			.populate("postedBy","_id name")
 			.then(entry=>{
 				res.status(203).json({entry})
-				console.log({entry})
 		}).catch(error=>{
 			console.log(error);
 		})
@@ -136,9 +137,15 @@ router.post('/createEntry',requireLogin,(req,res)=>{
 }
 
 router.put('/addstep',requireLogin,(req,res)=>{
+	const {img} = req.body;
+
+	if(!img){
+		return res.status(422).json({error:"por favor, llena todos los campos"})
+	}
+
 	const step = {
 		text:req.body.text,
-		photo: req.body.img
+		photo: img
 	}
 
 	Entry.findByIdAndUpdate(req.body.entryId,{
@@ -149,8 +156,6 @@ router.put('/addstep',requireLogin,(req,res)=>{
 		processEntryFacts(req, res, err,result);
 	})
 })
-
-
 
 /**
  * @swagger
@@ -167,7 +172,7 @@ router.put('/addstep',requireLogin,(req,res)=>{
  *         description: Error de acceso, debe estar logueado para poder acceder a esta información.
  *         type: json
  *       422:
- *         descripcion: Error de procesamiento de datos.
+ *         description: Error de procesamiento de datos.
  *         type: json
  */
 router.put('/addlabel',requireLogin,(req,res)=>{

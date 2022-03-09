@@ -1,10 +1,10 @@
 const request = require('request');
 const server = require('../server');
 
-const endpoint = 'http://localhost:3000/stats';
+const endpoint = 'http://localhost:3000/user/stats';
 
 const options = {
-	url: 'http://localhost:3000/stats',
+	url: endpoint,
 	headers: {
 		Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGI2OTc2NmE2Y2UxYTI3MTg0YzNjYjAiLCJpYXQiOjE2MjI4NjA4Mjl9.ieGN9FLEHYuGrbGyQ_0C17kpoOriOwQVjHj4x-41oEI"
 	}
