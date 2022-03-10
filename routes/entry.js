@@ -184,10 +184,8 @@ router.put('/addlabel',requireLogin,(req,res)=>{
 		$push:{labels:label}},{
 			new: true
 	})
-	.exec((err,result)=>{
-		
-		processEntryFacts(req, res, err,result);
-		
+	.exec((err,result)=>{		
+		processEntryFacts(req, res, err,result);		
 	})
 })
 

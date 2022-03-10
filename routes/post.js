@@ -257,8 +257,8 @@ router.delete('/deletepost/:postId',requireLogin,(req,res)=>{
 			post.remove()
 			.then(result=>{
 				res.status(204).json(result)
-			}).catch(err=>{
-				console.log(err)
+			}).catch(errprocess=>{
+				console.log(errprocess)
 			})
 		}
 	})

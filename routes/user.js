@@ -117,10 +117,10 @@ router.put('/follow',requireLogin,(req,res)=>{
 
 		User.findByIdAndUpdate(req.user._id,{
 			$push:{following:req.body.followId}
-		},{new:true}).select("-password").then(result=>{
-			res.json(result)
-		}).catch(err=>{
-			return res.status(422).json({error:err})
+		},{new:true}).select("-password").then(resultado=>{
+			res.json(resultado)
+		}).catch(errorprocess=>{
+			return res.status(422).json({error:errorprocess})
 		})
 
 	})
@@ -157,10 +157,10 @@ router.put('/unfollow',requireLogin,(req,res)=>{
 
 		User.findByIdAndUpdate(req.user._id,{
 			$pull:{following:req.body.unfollowId}
-		},{new:true}).select("-password").then(result=>{
-			res.json(result)
-		}).catch(err=>{
-			return res.status(422).json({error:err})
+		},{new:true}).select("-password").then(resultado=>{
+			res.json(resultado)
+		}).catch(errprocess=>{
+			return res.status(422).json({error:errprocess})
 		})
 
 	})
