@@ -14,7 +14,7 @@ describe('entry', function () {
      * prueba con acceso autorizado a la funcionalidad entry/addlabel
      * resultado esperado: code 203
      */
-    it('should return 203 response code, successful put', function (done) {
+    it('should return 203 response code, successful put (entry/addlabel)', function (done) {
         fetch(endpoint+'/addlabel',{
             method:"put",
             headers:{
@@ -36,7 +36,7 @@ describe('entry', function () {
      * prueba sin acceso autorizado a la funcionalidad /entry/addlabel
      * resultado esperado: code 401
      */
-    it('should return 401 response code because doesn´t exist authorization', function (done) {
+    it('should return 401 response code because doesn´t exist authorization (entry/addlabel)', function (done) {
         fetch(endpoint+'/addlabel',{
             method:"put",
             body:JSON.stringify({
@@ -53,7 +53,7 @@ describe('entry', function () {
      * prueba sin todos los datos completos a la funcionalidad /entry/addstep
      * resultado esperado: code 422
      */
-    it('should return 422 response code, incompleted data', function (done) {
+    it('should return 422 response code, incompleted data (entry/addstep)', function (done) {
         fetch(endpoint+'/addstep',{
             method:"put",
             headers:{
@@ -74,7 +74,7 @@ describe('entry', function () {
      * prueba con todos los datos completos a la funcionalidad /entry/addstep
      * resultado esperado: code 203
      */
-    it('should return 203 response code, put successful', function (done) {
+    it('should return 203 response code, put successful (entry/addstep)', function (done) {
         fetch(endpoint+'/addstep',{
             method:"put",
             headers:{
@@ -96,7 +96,7 @@ describe('entry', function () {
      * prueba sin los permisos requeridos a /entry/addstep
      * resultado esperado: code 401
      */
-    it('should return 401 response code because doesn´t exist authorization', function (done) {
+    it('should return 401 response code because doesn´t exist authorization (entry/addstep)', function (done) {
         fetch(endpoint+'/addstep',{
             method:"put",
             body:JSON.stringify({
@@ -109,6 +109,4 @@ describe('entry', function () {
             done();
         })       
     })
-
-
 });

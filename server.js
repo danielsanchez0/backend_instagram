@@ -21,6 +21,7 @@ function run(callback) {
      */
     const user = require('./routes/user');
     const entry = require('./routes/entry');
+    const auth = require('./routes/auth');
 
     /**
      * conexion a la base de datos
@@ -45,6 +46,7 @@ function run(callback) {
 
     app.use('/user',user);
     app.use('/entry',entry);
+    app.use('/auth', auth);
 
     var server = app.listen(3000, function () {
         console.log('started');
