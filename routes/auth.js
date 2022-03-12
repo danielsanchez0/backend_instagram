@@ -19,7 +19,7 @@ const transporter = nodemailer.createTransport(sendgridTransport({
  * @swagger
  * /auth/signup:
  *   post:
- *     description: Usado para solicitar crear un nuevo post.
+ *     description: Usado para solicitar crear un nuevo usuario.
  *     produces:
  *       - application/json
  *     responses:
